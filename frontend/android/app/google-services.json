@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "211317490313",
+    "project_id": "meatwell-aa322",
+    "storage_bucket": "meatwell-aa322.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:211317490313:android:3f5779aa5de51208a1fc58",
+        "android_client_info": {
+          "package_name": "com.example.fitness2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBK8gDoMFUsDkA8OaSsKd8qAiB5u2_wc0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
