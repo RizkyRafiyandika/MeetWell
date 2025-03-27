@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness2/constants/colors.dart';
 import 'package:fitness2/models/CustomeLogin_scaffold.dart';
 import 'package:fitness2/pages/loginPage.dart';
 import 'package:fitness2/pages/registerPage.dart';
+import 'package:fitness2/widgets/myNavigationMenu.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -75,6 +78,28 @@ class WelcomeScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18, color: Colors.blue),
               ),
             ),
+            SizedBox(height: 20),
+            GestureDetector(
+              onTap: () async {
+                try {
+                  UserCredential userCredential =
+                      await FirebaseAuth.instance.signInAnonymously();
+                  print("Login as guest: ${userCredential.user?.uid}");
+
+                  // Navigasi ke halaman home setelah login
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyNavigationMenu()),
+                  );
+                } catch (e) {
+                  print("Error login as guest: $e");
+                }
+              },
+              child: Text(
+                "As Guest",
+                style: TextStyle(color: tdcyan, fontWeight: FontWeight.w800),
+              ),
+            )
           ],
         ),
       ),

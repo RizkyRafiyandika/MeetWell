@@ -11,7 +11,7 @@ const popularDiets = [
     "duration": "30mins",
     "calorie": "230kCal",
     "boxIsSelected": true,
-    "cost": 85000, // Harga dalam IDR
+    "cost": 85000,
   },
   {
     "name": "Salmon Nigiri",
@@ -21,7 +21,7 @@ const popularDiets = [
     "duration": "20mins",
     "calorie": "120kCal",
     "boxIsSelected": true,
-    "cost": 150000, // Lebih mahal karena ikan segar
+    "cost": 150000,
   },
   {
     "name": "Avocado Toast",
@@ -31,7 +31,7 @@ const popularDiets = [
     "duration": "10mins",
     "calorie": "150kCal",
     "boxIsSelected": true,
-    "cost": 60000, // Avocado cukup mahal di Indonesia
+    "cost": 60000,
   },
   {
     "name": "Greek Yogurt Parfait",
@@ -41,7 +41,7 @@ const popularDiets = [
     "duration": "5mins",
     "calorie": "100kCal",
     "boxIsSelected": true,
-    "cost": 50000, // Greek yogurt lebih murah dibanding makanan utama
+    "cost": 50000,
   },
   {
     "name": "Quinoa Salad",
@@ -51,10 +51,23 @@ const popularDiets = [
     "duration": "25mins",
     "calorie": "200kCal",
     "boxIsSelected": true,
-    "cost": 100000, // Quinoa cukup mahal di Indonesia
-  },
+    "cost": 100000,
+  }
 ];
 
+// Menambahkan 45 makanan tambahan dengan iconPath "assets/question_mark.jpeg"
+for (let i = 1; i <= 45; i++) {
+  popularDiets.push({
+    "name": `Food Item ${i}`,
+    "type": ["Salad", "Dessert", "Sushi", "Breakfast", "Soup", "Healthy", "Vegan", "Pasta", "Protein"][i % 9],
+    "iconPath": "assets/question_mark.jpeg",
+    "level": ["Easy", "Medium", "Hard"][i % 3],
+    "duration": `${(i % 40) + 5}mins`,
+    "calorie": `${(i % 400) + 50}kCal`,
+    "boxIsSelected": true,
+    "cost": ((i % 200) + 40000),
+  });
+}
 
 // Endpoint untuk mendapatkan data diet populer
 router.get('/popular-diets', (req, res) => {

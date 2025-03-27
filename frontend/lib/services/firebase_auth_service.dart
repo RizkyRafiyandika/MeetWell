@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -37,6 +38,40 @@ class FirebaseAuthService {
           email: email, password: password);
       return credential.user;
     } catch (e) {
+      return null;
+    }
+  }
+
+// Google Sign In
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return null;
+
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+
+      UserCredential userCredential = await _auth.signInWithCredential(
+        credential,
+      );
+      User? user = userCredential.user;
+
+      if (user != null) {
+        await _firestore.collection("users").doc(user.uid).set({
+          "email": user.email,
+          "username": user.displayName ?? "unknown",
+          "balance": 0.0,
+          "createdAt": FieldValue.serverTimestamp(),
+        }, SetOptions(merge: true)); // Perbaikan agar tidak menimpa data lama
+      }
+      return userCredential;
+    } catch (e) {
+      print("Error during Google sign-in: $e");
       return null;
     }
   }

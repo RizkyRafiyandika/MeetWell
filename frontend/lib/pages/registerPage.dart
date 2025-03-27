@@ -1,7 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness2/constants/colors.dart';
 import 'package:fitness2/models/CustomeLogin_scaffold.dart';
-import 'package:fitness2/models/customeSocialAuth.dart';
 import 'package:fitness2/models/customeTextField.dart';
 import 'package:fitness2/models/customeToastMsg.dart';
 import 'package:fitness2/pages/loginPage.dart';
@@ -131,43 +130,34 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Divider(
-                                color: Colors.grey.shade400,
-                                thickness: 1,
-                                indent: 20,
-                                endIndent: 10,
-                              ),
-                            ),
-                            const Text(
-                              "Or sign in with",
-                              style:
-                                  TextStyle(fontSize: 14, color: Colors.black),
-                            ),
-                            Expanded(
-                              child: Divider(
-                                color: Colors.grey.shade400,
-                                thickness: 1,
-                                indent: 20,
-                                endIndent: 10,
-                              ),
-                            ),
-                          ],
+                        SizedBox(
+                          height: 20,
                         ),
-                        const SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            SocialAuthButton(
-                              assetPath: "assets/icons/google.png",
-                              lbl: "Google",
+                            const Text(
+                              "already have an account? ",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500),
                             ),
-                            const SizedBox(width: 20),
-                            SocialAuthButton(
-                              assetPath: "assets/icons/facebook.png",
-                              lbl: "Facebook",
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (e) => MyLoginPage()));
+                              },
+                              child: const Text(
+                                "Login",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ),
                           ],
                         ),

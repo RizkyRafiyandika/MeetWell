@@ -1,15 +1,16 @@
 const express = require('express');
-const cors = require('cors'); // Import CORS
+const cors = require('cors'); 
 
 const app = express();
 const PORT = 4000;
+const LOCAL_IP = '0.0.0.0'; // Ganti dengan IP lokal dari langkah 1
 
 // Middleware untuk parsing JSON
 app.use(express.json());
 
-// ✅ Middleware CORS
+// ✅ Middleware CORS agar bisa diakses dari HP/laptop lain
 app.use(cors({
-  origin: '*', // Izinkan semua origin
+  origin: '*', 
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -22,7 +23,7 @@ const categoriesRoutes = require('./routes/Categories');
 app.use('/api', popularDietsRoutes);
 app.use('/api', categoriesRoutes);
 
-// Jalankan server
-app.listen(PORT, () => {
-  console.log(`✅ Server berjalan di http://localhost:${PORT}`);
+// Jalankan server dengan IP lokal
+app.listen(PORT, LOCAL_IP, () => {
+  console.log(`✅ Server berjalan di http://${LOCAL_IP}:${PORT}`);
 });

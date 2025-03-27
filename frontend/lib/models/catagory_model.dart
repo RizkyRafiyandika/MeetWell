@@ -38,7 +38,25 @@ class CategoryModel {
     ));
 
     categories.add(CategoryModel(
-      name: "Lunch",
+        name: "Soup",
+        iconPath: "assets/question_mark.jpeg",
+        boxColor: const Color.fromARGB(255, 26, 205, 184)));
+    categories.add(CategoryModel(
+        name: "Healthy Bowl",
+        iconPath: "assets/question_mark.jpeg",
+        boxColor: const Color.fromARGB(255, 26, 205, 62)));
+
+    categories.add(CategoryModel(
+        name: "Vegan",
+        iconPath: "assets/question_mark.jpeg",
+        boxColor: const Color.fromARGB(255, 26, 205, 184)));
+
+    categories.add(CategoryModel(
+        name: "Pasta",
+        iconPath: "assets/question_mark.jpeg",
+        boxColor: const Color.fromARGB(255, 26, 205, 184)));
+    categories.add(CategoryModel(
+      name: "Protein",
       iconPath: "assets/breakfast_cat.png",
       boxColor: const Color.fromARGB(255, 231, 215, 69),
     ));

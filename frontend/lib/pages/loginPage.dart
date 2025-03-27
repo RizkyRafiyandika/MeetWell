@@ -1,3 +1,4 @@
+import 'package:fitness2/models/customeSocialAuth.dart';
 import 'package:fitness2/pages/registerPage.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -125,6 +126,56 @@ class _MyLoginPageState extends State<MyLoginPage> {
                           ],
                         ),
                         const SizedBox(height: 30),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                color: Colors.grey.shade400,
+                                thickness: 1,
+                                indent: 20,
+                                endIndent: 10,
+                              ),
+                            ),
+                            const Text(
+                              "Or sign in with",
+                              style:
+                                  TextStyle(fontSize: 14, color: Colors.black),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                color: Colors.grey.shade400,
+                                thickness: 1,
+                                indent: 20,
+                                endIndent: 10,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SocialAuthButton(
+                              assetPath: "assets/icons/google.png",
+                              lbl: "Google",
+                              onPressed: () async {
+                                await _authService.signInWithGoogle();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (e) => MyNavigationMenu()));
+                              },
+                            ),
+                            const SizedBox(width: 20),
+                            SocialAuthButton(
+                              assetPath: "assets/icons/facebook.png",
+                              lbl: "Facebook",
+                              onPressed: () {},
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(height: 20),
 
                         // Login Button
                         SizedBox(
@@ -157,7 +208,9 @@ class _MyLoginPageState extends State<MyLoginPage> {
                               const Text(
                                 "Don't have an account? ",
                                 style: TextStyle(
-                                    fontSize: 14, color: Colors.black),
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500),
                               ),
                               GestureDetector(
                                 onTap: () {

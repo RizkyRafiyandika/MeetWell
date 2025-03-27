@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness2/models/customeToastMsg.dart';
 import 'package:fitness2/pages/Search.dart';
 import 'package:fitness2/pages/WelcomeScreen.dart';
 import 'package:fitness2/pages/cart/cart.dart';
@@ -26,6 +27,15 @@ class _MyNavigationMenuState extends State<MyNavigationMenu> {
   ];
 
   void _onItemTapped(int index) {
+    if (index == 1) {
+      User? user = FirebaseAuth.instance.currentUser; // Cek apakah user login
+      if (user == null || user.isAnonymous) {
+        customToast("Your have login first ");
+        return;
+      }
+    }
+
+    // Jika lolos validasi, ubah tab
     setState(() {
       _selectedIndex = index;
     });
@@ -77,29 +87,53 @@ class MyAppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
+        // ✅ Ubah ListView menjadi Column
         children: <Widget>[
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(color: tdcyan),
             child: Text(
-              'Menu',
+              'Menu Bar',
               style: TextStyle(color: Colors.white, fontSize: 24),
             ),
           ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
-            onTap: () {
-              Navigator.pop(context); // ✅ Cukup pop untuk kembali ke home
-            },
+          // ✅ Gunakan Expanded agar ListTile tetap di atas
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.shopify_outlined),
+                  title: const Text('Cart'),
+                  onTap: () {
+                    User? user = FirebaseAuth.instance.currentUser;
+                    if (user == null || user.isAnonymous) {
+                      customToast("You have to login first");
+                      Navigator.pop(context);
+                      return;
+                    }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (e) => MyCart()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.info),
+                  title: const Text('About'),
+                  onTap: () => Navigator.pop(context),
+                ),
+              ],
+            ),
           ),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text('About'),
-            onTap: () => Navigator.pop(context),
-          ),
-          const Divider(),
+          const Divider(), // ✅ Garis pembatas di atas Logout
           ListTile(
             leading: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
@@ -112,6 +146,8 @@ class MyAppDrawer extends StatelessWidget {
               );
             },
           ),
+          const SizedBox(
+              height: 16), // ✅ Beri jarak antara logout dan bawah layar
         ],
       ),
     );

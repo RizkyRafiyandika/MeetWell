@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 class SocialAuthButton extends StatelessWidget {
   final String assetPath;
   final String lbl;
-  // final VoidCallback onPressed;
+  final VoidCallback onPressed;
 
   const SocialAuthButton({
     Key? key,
     required this.assetPath,
     required this.lbl,
-    // required this.onPressed,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // onTap: onPressed,
+      onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
