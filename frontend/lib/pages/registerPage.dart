@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fitness2/constants/colors.dart';
 import 'package:fitness2/models/CustomeLogin_scaffold.dart';
+import 'package:fitness2/models/customeSocialAuth.dart';
 import 'package:fitness2/models/customeTextField.dart';
 import 'package:fitness2/models/customeToastMsg.dart';
 import 'package:fitness2/pages/loginPage.dart';
 import 'package:fitness2/services/firebase_auth_service.dart';
+import 'package:fitness2/widgets/myNavigationMenu.dart';
 import 'package:flutter/material.dart';
 
 class MyRegisterPage extends StatefulWidget {
@@ -23,6 +25,8 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  final FirebaseAuthService _authService = FirebaseAuthService();
 
   @override
   void dispose() {
@@ -128,6 +132,28 @@ class _MyRegisterPageState extends State<MyRegisterPage> {
                               ),
                             ),
                           ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SocialAuthButton(
+                              assetPath: "assets/icons/google.png",
+                              lbl: "Google",
+                              onPressed: () async {
+                                await _authService.signUpWithGoogle();
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (e) => MyNavigationMenu()));
+                              },
+                            ),
+                            const SizedBox(width: 20),
+                            SocialAuthButton(
+                              assetPath: "assets/icons/facebook.png",
+                              lbl: "Facebook",
+                              onPressed: () {},
+                            ),
+                          ],
                         ),
                         const SizedBox(height: 20),
                         SizedBox(

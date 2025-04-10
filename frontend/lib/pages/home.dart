@@ -151,14 +151,6 @@ class _MyHomepageState extends State<MyHomepage> {
       children: [
         const Padding(
           padding: EdgeInsets.only(left: 20),
-          child: Text(
-            'Popular',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
         ),
         const SizedBox(height: 15),
         if (_foundPopularDiets.isEmpty)

@@ -1,6 +1,7 @@
 import 'package:fitness2/constants/colors.dart';
 import 'package:fitness2/pages/loginPage.dart';
 import 'package:fitness2/pages/profile/updateProfile.dart';
+import 'package:fitness2/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
@@ -94,6 +95,7 @@ class myProfilePage extends StatelessWidget {
                   onPress: () {
                     Navigator.pushReplacement(context,
                         MaterialPageRoute(builder: (e) => MyLoginPage()));
+                    signOutGoogle();
                   },
                 ),
               ],

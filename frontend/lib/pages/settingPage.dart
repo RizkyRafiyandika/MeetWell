@@ -1,4 +1,5 @@
 import 'package:fitness2/pages/WelcomeScreen.dart';
+import 'package:fitness2/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 class MySettingPage extends StatelessWidget {
@@ -63,6 +64,7 @@ class MySettingPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (e) => WelcomeScreen()));
+              signOutGoogle();
             },
           ),
         ],

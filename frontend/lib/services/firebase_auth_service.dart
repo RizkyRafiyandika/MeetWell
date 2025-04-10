@@ -43,7 +43,7 @@ class FirebaseAuthService {
   }
 
 // Google Sign In
-  Future<UserCredential?> signInWithGoogle() async {
+  Future<UserCredential?> signUpWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
       if (googleUser == null) return null;
@@ -69,6 +69,43 @@ class FirebaseAuthService {
           "createdAt": FieldValue.serverTimestamp(),
         }, SetOptions(merge: true)); // Perbaikan agar tidak menimpa data lama
       }
+      return userCredential;
+    } catch (e) {
+      print("Error during Google sign-in: $e");
+      return null;
+    }
+  }
+
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) return null;
+
+      final googleAuth = await googleUser.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+        accessToken: googleAuth.accessToken,
+      );
+
+      final userCredential = await _auth.signInWithCredential(credential);
+      final user = userCredential.user;
+
+      if (user != null) {
+        final userDoc =
+            await _firestore.collection("users").doc(user.uid).get();
+
+        if (!userDoc.exists) {
+          throw Exception("User not found. Please sign up first.");
+        }
+
+        // Optional: update email/username without touching balance
+        await _firestore.collection("users").doc(user.uid).set({
+          "email": user.email,
+          "username": user.displayName ?? "unknown",
+        }, SetOptions(merge: true));
+      }
+
       return userCredential;
     } catch (e) {
       print("Error during Google sign-in: $e");
@@ -115,4 +152,9 @@ class FirebaseAuthService {
       return "Insufficient balance!";
     }
   }
+}
+
+Future<void> signOutGoogle() async {
+  await GoogleSignIn().signOut();
+  await FirebaseAuth.instance.signOut();
 }

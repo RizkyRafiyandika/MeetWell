@@ -5,6 +5,7 @@ import 'package:fitness2/pages/WelcomeScreen.dart';
 import 'package:fitness2/pages/cart/cart.dart';
 import 'package:fitness2/pages/home.dart';
 import 'package:fitness2/pages/profile/profile.dart';
+import 'package:fitness2/services/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:fitness2/constants/colors.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -144,6 +145,7 @@ class MyAppDrawer extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const WelcomeScreen()),
                 (route) => false,
               );
+              signOutGoogle();
             },
           ),
           const SizedBox(
